@@ -11,7 +11,21 @@
 |
 */
 
-Route::get('/', function()
-{
-	return View::make('hello');
-});
+
+/*
+ * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
+ *
+ * Pages Routes
+ *
+ * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
+ */
+
+
+Route::get('/', 'PagesController@index');
+Route::get('/shop', 'PagesController@shop');
+Route::get('/contact', 'PagesController@contact');
+Route::get('/login', 'PagesController@login');
+Route::get('/product/{id}/', 'PagesController@product');
+Route::get('/product', 'PagesController@product');//temporal
+Route::get('/about', 'PagesController@about');
+
