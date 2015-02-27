@@ -45,9 +45,8 @@
                                         @if(Auth::user()->roles_id == 1)
                                         <li><a href="/dashboard">Administrar</a></li>
                                         @endif
-                                        <li><a href="#">Another action</a></li>
-                                        <li><a href="#">Something else here</a></li>
-                                        <li class="divider"></li>
+                                        <li><a href="/profile">Perfil</a></li>
+                                        <li><a href="/buy/history">Historial de Compras</a></li>
                                         <li><a href="/logout">Logout</a></li>
                                     </ul>
                                 </li>

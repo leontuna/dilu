@@ -19,6 +19,27 @@
  *
  * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
  */
+Route::get('/dashboard', 'AdminController@index');
+
+Route::get('/dashboard/users', 'UsersController@index');
+Route::get('/dashboard/users/new', 'UsersController@create');
+Route::get('/dashboard/users/{id}/edit', 'UsersController@edit');
+Route::get('/dashboard/users/{id}/delete', 'UsersController@destroy');
+
+Route::get('/dashboard/roles', 'RolesController@index');
+Route::get('/dashboard/roles/new', 'RolesController@create');
+Route::get('/dashboard/roles/{id}/edit', 'RolesController@edit');
+Route::get('/dashboard/roles/{id}/delete', 'RolesController@delete');
+
+Route::get('/dashboard/types', 'TypesController@index');
+Route::get('/dashboard/types/new', 'TypesController@create');
+Route::get('/dashboard/types/{id}/edit', 'TypesController@edit');
+Route::get('/dashboard/types/{id}/delete', 'TypesController@delete');
+
+Route::get('/dashboard/products', 'ProductsController@show');
+Route::get('/dashboard/products/new', 'ProductsController@create');
+Route::get('/dashboard/products/{id}/edit', 'ProductsController@edit');
+Route::get('/dashboard/products/{id}/delete', 'ProductsController@delete');
 
 Route::get('/product/{id}', 'PagesController@show');
 Route::get('/contact', 'PagesController@contact');
