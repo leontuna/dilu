@@ -30,17 +30,32 @@
             <div class="row">
                 <div class="col-sm-4">
                     <div class="logo pull-left">
-                        <a href="/"><img src="images/home/logo.png" alt="" /></a>
+                        <a href="/"><img src="/images/home/logo.png" alt="" /></a>
                     </div>
                 </div>
                 <div class="col-sm-8">
                     <div class="shop-menu pull-right">
                         <ul class="nav navbar-nav">
-                            <li><a href="$"><i class="fa fa-user"></i> Account</a></li>
-                            <li><a href="#"><i class="fa fa-star"></i> Wishlist</a></li>
-                            <li><a href="/checkout"><i class="fa fa-crosshairs"></i> Checkout</a></li>
-                            <li><a href="/cart"><i class="fa fa-shopping-cart"></i> Cart</a></li>
-                            <li><a href="/login"><i class="fa fa-lock"></i> Login</a></li>
+                            <li><a href="/cart"><i class="fa fa-shopping-cart"></i>Carro de Compras</a></li>
+                            @if (Auth::check())
+                                <li><a class="dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+                                        <i class="fa fa-user"></i> {{Auth::user()->name }} {{Auth::user()->lastname1}} <span class="caret"></span>
+                                    </a>
+                                    <ul class="dropdown-menu" role="menu">
+                                        @if(Auth::user()->roles_id == 1)
+                                        <li><a href="/dashboard">Administrar</a></li>
+                                        @endif
+                                        <li><a href="#">Another action</a></li>
+                                        <li><a href="#">Something else here</a></li>
+                                        <li class="divider"></li>
+                                        <li><a href="/logout">Logout</a></li>
+                                    </ul>
+                                </li>
+                            @else
+                                <li><a href="/login"><i class="fa fa-lock"></i> Login</a></li>
+                            @endif
+
+
                         </ul>
                     </div>
                 </div>

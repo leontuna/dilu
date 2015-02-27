@@ -20,12 +20,19 @@
  * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
  */
 
-
-Route::get('/', 'PagesController@index');
-Route::get('/shop', 'PagesController@shop');
+Route::get('/product/{id}', 'PagesController@show');
 Route::get('/contact', 'PagesController@contact');
-Route::get('/login', 'PagesController@login');
-Route::get('/product/{id}/', 'PagesController@product');
-Route::get('/product', 'PagesController@product');//temporal
 Route::get('/about', 'PagesController@about');
+Route::get('/', 'PagesController@index');
+
+
+
+Route::get('/shop', 'ProductsController@index');
+Route::get('/product/type/{id}', 'ProductsController@productsByType');
+
+
+
+Route::get('/login', 'SessionsController@create');
+Route::get('/logout', 'SessionsController@destroy');
+Route::resource('sessions', 'SessionsController', ['only' => ['create', 'store', 'destroy']]);
 

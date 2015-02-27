@@ -15,7 +15,7 @@ class User extends Eloquent implements UserInterface, RemindableInterface {
 	 * @var string
 	 */
 	protected $table = 'users';
-
+	protected $guarded = ['id'];
 	/**
 	 * The attributes excluded from the model's JSON form.
 	 *
@@ -23,4 +23,21 @@ class User extends Eloquent implements UserInterface, RemindableInterface {
 	 */
 	protected $hidden = array('password', 'remember_token');
 
+	/**
+	 * Hash the user's pass at the moment to save into the database
+	 * @param string $password Hashed
+	 */
+	public function setPasswordAttribute($password)
+	{
+		$this->attributes['password'] = Hash::make($password);
+	}
+
+	public function roles()
+	{
+		return $this->belongsToMany('Role')->withTimestamps();
+	}
+	public function assignRole($role)
+	{
+		return $this->roles()->attach($role);
+	}
 }
