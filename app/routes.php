@@ -32,13 +32,17 @@ Route::get('/dashboard/roles/{id}/edit', 'RolesController@edit');
 Route::get('/dashboard/roles/{id}/delete', 'RolesController@delete');
 
 Route::get('/dashboard/types', 'TypesController@index');
-Route::get('/dashboard/types/new', 'TypesController@create');
+Route::get('/dashboard/types/new', 'TypesController@showCreate');
+Route::post('/dashboard/types/new', 'TypesController@create');
 Route::get('/dashboard/types/{id}/edit', 'TypesController@edit');
 Route::get('/dashboard/types/{id}/delete', 'TypesController@delete');
 
 Route::get('/dashboard/products', 'ProductsController@show');
-Route::get('/dashboard/products/new', 'ProductsController@create');
+Route::get('/dashboard/products/type/{id}', 'ProductsController@getByType');
+Route::get('/dashboard/products/new', 'ProductsController@showCreate');
+Route::post('/dashboard/products/new', 'ProductsController@create');
 Route::get('/dashboard/products/{id}/edit', 'ProductsController@edit');
+Route::post('/dashboard/products/{id}/edit', 'ProductsController@save');
 Route::get('/dashboard/products/{id}/delete', 'ProductsController@delete');
 
 Route::get('/product/{id}', 'PagesController@show');

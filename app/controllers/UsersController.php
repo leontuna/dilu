@@ -9,7 +9,11 @@ class UsersController extends \BaseController {
 	 */
 	public function index()
 	{
-		//
+		if(Auth::user()->roles_id == 1)
+		{
+			return View::make('admin.main.users.list');
+		}
+		return Redirect::to('/');
 	}
 
 	/**

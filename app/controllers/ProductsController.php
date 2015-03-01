@@ -2,11 +2,6 @@
 
 class ProductsController extends \BaseController {
 
-	/**
-	 * Display a listing of the resource.
-	 *
-	 * @return Response
-	 */
 	public function index()
 	{
 		$products = Product::paginate(12);
@@ -21,73 +16,115 @@ class ProductsController extends \BaseController {
 		return View::make('pages.shop', compact('products','text'));
 	}
 
-	/**
-	 * Display the specified resource.
-	 *
-	 * @param  int  $id
-	 * @return Response
-	 */
-	public function show($id)
+
+	public function show()
 	{
-		//
+		if(Auth::user()->roles_id == 1)
+		{
+			return View::make('admin.main.products.list');
+		}
+		return Redirect::to('/');
 	}
-	/**
-	 * Show the form for creating a new resource.
-	 *
-	 * @return Response
-	 */
+
+	public function getByType($id)
+	{
+		if(Auth::user()->roles_id == 1)
+		{
+			$products = Product::where('types_id','=',$id)->get();
+			$text = Type::find($id);
+			$text = $text->name;
+			return View::make('admin.main.products.bytype',compact('products','text'));
+		}
+		return Redirect::to('/');
+	}
+
+
+	public function showCreate()
+	{
+		if(Auth::user()->roles_id == 1)
+		{
+			return View::make('admin.main.products.new');
+		}
+		return Redirect::to('/');
+	}
+
 	public function create()
 	{
-		//
+		if(Auth::user()->roles_id == 1)
+		{
+				$file = Input::file("img");
+				$product = new Product();
+				$product->code = Input::get("code");
+				$product->weight = Input::get('weight');
+				$product->size = Input::get('size');
+				$product->name = Input::get('name');
+				$product->price = Input::get('price');
+				$product->reference = Input::get('reference');
+				$product->types_id = Input::get('type');
+				$product->img_path = Input::file("img")->getClientOriginalName();
+
+				if($product->save())
+				{
+					$file->move("public/images/products/",$file->getClientOriginalName());
+
+					return Redirect::to('/dashboard/products')->with(array('confirm' => 'Producto Creado Exitosamente'));
+				}
+
+		}
+		return Redirect::to('/');
 	}
 
-
-	/**
-	 * Store a newly created resource in storage.
-	 *
-	 * @return Response
-	 */
-	public function store()
-	{
-		//
-	}
-
-
-
-
-	/**
-	 * Show the form for editing the specified resource.
-	 *
-	 * @param  int  $id
-	 * @return Response
-	 */
 	public function edit($id)
 	{
-		//
+		if(Auth::user()->roles_id == 1)
+		{
+			$product = Product::find($id);
+			return View::make('admin.main.products.edit',compact('product'));
+		}
+		return Redirect::to('/');
+	}
+
+	public function save($id)
+	{
+		if(Auth::user()->roles_id == 1)
+		{
+			$file = Input::file("img");
+			if($product = Product::find($id))
+			{
+				$product->code = Input::get("code");
+				$product->weight = Input::get('weight');
+				$product->size = Input::get('size');
+				$product->name = Input::get('name');
+				$product->price = Input::get('price');
+				$product->reference = Input::get('reference');
+				$product->types_id = Input::get('type');
+				$product->img_path = Input::file("img")->getClientOriginalName();
+
+				if($product->save())
+				{
+					$file->move("public/images/products/",$file->getClientOriginalName());
+
+					return Redirect::to('/dashboard/products')->with(array('confirm' => 'Producto Actualizado Exitosamente'));
+				}
+
+			}
+
+		}
+		return Redirect::to('/');
 	}
 
 
-	/**
-	 * Update the specified resource in storage.
-	 *
-	 * @param  int  $id
-	 * @return Response
-	 */
-	public function update($id)
+	public function delete($id)
 	{
-		//
-	}
+		if(Auth::user()->roles_id == 1)
+		{
+			$product = Product::find($id);
 
+			$product->delete();
 
-	/**
-	 * Remove the specified resource from storage.
-	 *
-	 * @param  int  $id
-	 * @return Response
-	 */
-	public function destroy($id)
-	{
-		//
+			return Redirect::to('/dashboard/products');
+		}
+		return Redirect::to('/');
 	}
 
 

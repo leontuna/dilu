@@ -13,6 +13,14 @@ class UsersTableSeeder extends Seeder {
             'password' => "123",
             'roles_id' => 1
         ]);
+        User::create([
+            'name' => "Andrea",
+            'lastname1' => "Perez",
+            'lastname2' => "",
+            'email' => 'cotizadilu@gmail.com',
+            'password' => "123",
+            'roles_id' => 1
+        ]);
     }
 
 }
